@@ -20,6 +20,10 @@ namespace trainer.api.ContainerRegistration
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<MongoDbContext>().As<MongoDbContext>();
+            
+            builder.RegisterAssemblyTypes(typeof(MongoDbContext).Assembly)
+                .Where(t => t.Name.EndsWith("Repository"))
+                .AsImplementedInterfaces();
         }
     }
 }
